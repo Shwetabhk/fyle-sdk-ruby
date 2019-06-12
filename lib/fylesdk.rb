@@ -1,6 +1,7 @@
 require 'net/http'
 require_relative 'fylesdk/employees'
 require 'json'
+require_relative './exceptions'
 
 module FyleSDK
     class Connect
@@ -64,8 +65,31 @@ module FyleSDK
         request["Content-Type"] = 'application/json'
         request.body = body.to_json()
         response = http.request(request)
-        data = JSON.parse(response.body)
-        return data["access_token"]
+
+        if response.code == "200"
+          data = JSON.parse(response.body)
+          return data["access_token"]
+        elsif response.code == "400"
+            raise FyleSDK::WrongParamsError.new('Some of the parameters are wrong', JSON.parse(response.body))
+
+        elif response.code == "401"
+            raise FyleSDK::InvalidTokenError.new('Invalid token, try to refresh it', JSON.parse(response.body))
+
+        elsif response.code == "403"
+            raise FyleSDK::NoPrivilegeError.new('Forbidden, the user has insufficient privilege', JSON.parse(response.body))
+
+        elsif response.code == "404"
+            raise FyleSDK::NotFoundItemError.new('Not found item with ID', JSON.parse(response.body))
+
+        elsif response.code == "498"
+            raise FyleSDK::ExpiredTokenError.new('Expired token, try to refresh it', JSON.parse(response.body))
+
+        elsif response.code == "500"
+            raise FyleSDK::InternalServerError.new('Internal server error', JSON.parse(response.body))
+
+        else
+            raise FyleSDK::FyleSDKError.new('Error: %s' % response.code, JSON.parse(response.body))
+        end
       end
     end
 end

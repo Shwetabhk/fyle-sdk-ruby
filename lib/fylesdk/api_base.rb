@@ -41,8 +41,6 @@ module FyleSDK
             # ignore all unused params
             params.each do |key, value|
                 if value != nil
-                    puts key
-                    puts value
                     api_params[key] = value
                 end
             end
@@ -55,7 +53,31 @@ module FyleSDK
             request = Net::HTTP::Get.new(url)
             request["X-AUTH-TOKEN"] = @access_token
             response = http.request(request)
-            return JSON.parse(response.body)
+            
+            if response.code == "200"
+                return JSON.parse(response.body)
+    
+            elsif response.code == "400"
+                raise FyleSDK::WrongParamsError('Some of the parameters are wrong', JSON.parse(response.body))
+    
+            elif response.code == "401"
+                raise FyleSDK::InvalidTokenError('Invalid token, try to refresh it', JSON.parse(response.body))
+    
+            elsif response.code == "403"
+                raise FyleSDK::NoPrivilegeError('Forbidden, the user has insufficient privilege', JSON.parse(response.body))
+    
+            elsif response.code == "404"
+                raise FyleSDK::NotFoundItemError('Not found item with ID', JSON.parse(response.body))
+    
+            elsif response.code == "498"
+                raise FyleSDK::ExpiredTokenError('Expired token, try to refresh it', JSON.parse(response.body))
+    
+            elsif response.code == "500"
+                raise FyleSDK::InternalServerError('Internal server error', JSON.parse(response.body))
+    
+            else
+                raise FyleSDK::FyleSDKError('Error: {0}'.format(response.code), JSON.parse(response.body))
+            end
         end
 
         def post_request(path, body)
@@ -77,7 +99,31 @@ module FyleSDK
             request["X-Auth-Token"] = @access_token
             request.body = body.to_json()
             response = http.request(request)
-            return JSON.parse(response.body)
+
+            if response.code == "200"
+                return JSON.parse(response.body)
+    
+            elsif response.code == "400"
+                raise FyleSDK::WrongParamsError.new('Some of the parameters are wrong', JSON.parse(response.body))
+    
+            elif response.code == "401"
+                raise FyleSDK::InvalidTokenError.new('Invalid token, try to refresh it', JSON.parse(response.body))
+    
+            elsif response.code == "403"
+                raise FyleSDK::NoPrivilegeError.new('Forbidden, the user has insufficient privilege', JSON.parse(response.body))
+    
+            elsif response.code == "404"
+                raise FyleSDK::NotFoundItemError.new('Not found item with ID', JSON.parse(response.body))
+    
+            elsif response.code == "498"
+                raise FyleSDK::ExpiredTokenError.new('Expired token, try to refresh it', JSON.parse(response.body))
+    
+            elsif response.code == "500"
+                raise FyleSDK::InternalServerError.new('Internal server error', JSON.parse(response.body))
+    
+            else
+                raise FyleSDK::FyleSDKError.new('Error: %s' % response.code, JSON.parse(response.body))
+            end
         end
     end
 end
