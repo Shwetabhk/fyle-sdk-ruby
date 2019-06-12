@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
       "lib/fylesdk/api_base.rb",
       "lib/fylesdk/employees.rb"
     ]
-    gem.author = "Shwetabh Kumar"
-    gem.email = "shwetabh.kumar@fyle.in"
+    gem.author = "Siva Narayanan"
+    gem.email = "siva@fyle.in"
     gem.homepage = "https://github.com/fylein/fyle-sdk-ruby"
     gem.license = "MIT"
     gem.require_paths = ["lib"]
