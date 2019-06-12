@@ -51,7 +51,7 @@ module FyleSDK
             http = Net::HTTP.new(url.host, url.port)
             http.use_ssl = true
             request = Net::HTTP::Get.new(url)
-            request["X-AUTH-TOKEN"] = @access_token
+            request["Authorization"] = 'Bearer %s' % @access_token
             response = http.request(request)
             
             if response.code == "200"
@@ -76,7 +76,7 @@ module FyleSDK
                 raise FyleSDK::InternalServerError('Internal server error', JSON.parse(response.body))
     
             else
-                raise FyleSDK::FyleSDKError('Error: {0}'.format(response.code), JSON.parse(response.body))
+                raise FyleSDK::FyleSDKError('Error: %s' % response.code, JSON.parse(response.body))
             end
         end
 
@@ -96,7 +96,7 @@ module FyleSDK
 
             request = Net::HTTP::Post.new(url)
             request["Content-Type"] = 'application/json'
-            request["X-Auth-Token"] = @access_token
+            request["Authorization"] = 'Bearer %s' % @access_token
             request.body = body.to_json()
             response = http.request(request)
 
