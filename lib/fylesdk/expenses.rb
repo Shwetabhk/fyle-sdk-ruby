@@ -1,5 +1,3 @@
-require_relative './api_base'
-
 POST_EXPENSE = '/api/tpa/v1/expenses'
 GET_EXPENSES = '/api/tpa/v1/expenses'
 GET_EXPENSES_COUNT = '/api/tpa/v1/expenses/count'

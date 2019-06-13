@@ -5,10 +5,11 @@ Gem::Specification.new do |gem|
     gem.summary = %q{fylesdk is a gem to integrate Fyle data in applications}
     gem.files = [
       "lib/fylesdk.rb",
-      "lib/exceptions.rb"
+      "lib/exceptions.rb",
       "lib/fylesdk/api_base.rb",
       "lib/fylesdk/employees.rb",
-      "lib/fylesdk/expenses.rb"
+      "lib/fylesdk/expenses.rb",
+      "lib/fylesdk/reports.rb"
     ]
     gem.author = "Shwetabh Kumar"
     gem.email = "shwetabh.kumar@fyle.in"

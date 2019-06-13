@@ -1,7 +1,11 @@
 require 'net/http'
+require 'json'
+
+require_relative 'fylesdk/api_base'
 require_relative 'fylesdk/employees'
 require_relative 'fylesdk/expenses'
-require 'json'
+require_relative 'fylesdk/reports'
+
 require_relative './exceptions'
 
 module FyleSDK
@@ -24,6 +28,7 @@ module FyleSDK
         # create an object for each api
         @employees = FyleSDK::Employees.new()
         @expenses = FyleSDK::Expenses.new()
+        @reports = FyleSDK::Reports.new()
 
         # get the access token and base_url
         self.update_access_token
@@ -39,11 +44,18 @@ module FyleSDK
         return @expenses
       end
 
+      def reports
+        return @reports
+      end
+
+      """Functions to set information in APIs"""
+
       def update_access_token
         """Update the access token and change it in all API objects."""
 
         @employees.change_access_token(@access_token)
         @expenses.change_access_token(@access_token)
+        @reports.change_access_token(@access_token)
       end
 
       def update_base_url
@@ -51,6 +63,7 @@ module FyleSDK
 
         @employees.set_base_url(@base_url)
         @expenses.set_base_url(@base_url)
+        @reports.set_base_url(@base_url)
       end
 
       def get_access_token

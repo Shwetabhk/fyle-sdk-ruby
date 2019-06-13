@@ -1,5 +1,3 @@
-require_relative './api_base'
-
 POST_EMPLOYEES = '/api/tpa/v1/employees'
 GET_EMPLOYEES = '/api/tpa/v1/employees'
 GET_EMPLOYEE_BY_ID = '/api/tpa/v1/employees/%s'
