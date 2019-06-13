@@ -47,7 +47,7 @@ module FyleSDK
                 "updated_at" => updated_at,
                 "exported" => exported
             }
-            return self.get_request(GET_REPORTS_COUNT)
+            return self.get_request(GET_REPORTS_COUNT, params)
         end
     end
 end
