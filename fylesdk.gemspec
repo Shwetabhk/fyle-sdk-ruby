@@ -9,7 +9,8 @@ Gem::Specification.new do |gem|
       "lib/fylesdk/api_base.rb",
       "lib/fylesdk/employees.rb",
       "lib/fylesdk/expenses.rb",
-      "lib/fylesdk/reports.rb"
+      "lib/fylesdk/reports.rb",
+      "lib/fylesdk/advances.rb"
     ]
     gem.author = "Shwetabh Kumar"
     gem.email = "shwetabh.kumar@fyle.in"

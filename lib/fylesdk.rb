@@ -5,6 +5,7 @@ require_relative 'fylesdk/api_base'
 require_relative 'fylesdk/employees'
 require_relative 'fylesdk/expenses'
 require_relative 'fylesdk/reports'
+require_relative 'fylesdk/advances'
 
 require_relative './exceptions'
 
@@ -29,6 +30,7 @@ module FyleSDK
         @employees = FyleSDK::Employees.new()
         @expenses = FyleSDK::Expenses.new()
         @reports = FyleSDK::Reports.new()
+        @advances = FyleSDK::Advances.new()
 
         # get the access token and base_url
         self.update_access_token
@@ -47,6 +49,10 @@ module FyleSDK
       def reports
         return @reports
       end
+      
+      def advances
+        return @advances
+      end
 
       """Functions to set information in APIs"""
 
@@ -56,6 +62,7 @@ module FyleSDK
         @employees.change_access_token(@access_token)
         @expenses.change_access_token(@access_token)
         @reports.change_access_token(@access_token)
+        @advances.change_access_token(@access_token)
       end
 
       def update_base_url
@@ -64,6 +71,7 @@ module FyleSDK
         @employees.set_base_url(@base_url)
         @expenses.set_base_url(@base_url)
         @reports.set_base_url(@base_url)
+        @advances.set_base_url(@base_url)
       end
 
       def get_access_token
