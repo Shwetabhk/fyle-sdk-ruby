@@ -7,6 +7,8 @@ require_relative 'fylesdk/expenses'
 require_relative 'fylesdk/reports'
 require_relative 'fylesdk/advances'
 require_relative 'fylesdk/trip_requests'
+require_relative 'fylesdk/reimbursements'
+require_relative 'fylesdk/settlements'
 
 require_relative './exceptions'
 
@@ -33,6 +35,8 @@ module FyleSDK
         @reports = FyleSDK::Reports.new()
         @advances = FyleSDK::Advances.new()
         @trip_requests = FyleSDK::TripRequests.new()
+        @reimbursements = FyleSDK::Reimbursements.new()
+        @settlements = FyleSDK::Settlements.new()
 
         # get the access token and base_url
         self.update_access_token
@@ -60,6 +64,14 @@ module FyleSDK
         return @trip_requests
       end
 
+      def reimbursements
+        return @reimbursements
+      end
+
+      def settlements
+        return @settlements
+      end
+
       """Functions to set information in APIs"""
 
       def update_access_token
@@ -70,6 +82,8 @@ module FyleSDK
         @reports.change_access_token(@access_token)
         @advances.change_access_token(@access_token)
         @trip_requests.change_access_token(@access_token)
+        @reimbursements.change_access_token(@access_token)
+        @settlements.change_access_token(@access_token)
       end
 
       def update_base_url
@@ -80,6 +94,8 @@ module FyleSDK
         @reports.set_base_url(@base_url)
         @advances.set_base_url(@base_url)
         @trip_requests.set_base_url(@base_url)
+        @reimbursements.set_base_url(@base_url)
+        @settlements.set_base_url(@base_url)
       end
 
       def get_access_token

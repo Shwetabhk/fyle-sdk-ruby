@@ -11,11 +11,13 @@ Gem::Specification.new do |gem|
       "lib/fylesdk/expenses.rb",
       "lib/fylesdk/reports.rb",
       "lib/fylesdk/advances.rb",
-      "lib/fylesdk/trip_requests.rb"
+      "lib/fylesdk/trip_requests.rb",
+      "lib/fylesdk/reimbursements.rb",
+      "lib/fylesdk/settlements.rb"
     ]
     gem.author = "Shwetabh Kumar"
     gem.email = "shwetabh.kumar@fyle.in"
     gem.homepage = "https://github.com/fylein/fyle-sdk-ruby"
     gem.license = "MIT"
     gem.require_paths = ["lib"]
-  end
+end
